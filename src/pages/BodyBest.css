@@ -1,0 +1,54 @@
+.BodyBest {
+  width: 1920px;
+  height: 650px;
+  position: relative;
+  display: flex;
+  flex-direction: column; /* 요소를 세로 방향으로 배치합니다. */
+  justify-content: space-around; /* 요소들을 가운데 정렬하고 주변 여백을 균등하게 분배합니다. */
+  align-items: center;
+}
+
+.BestStyle {
+  display: flex;
+  flex-direction: row; /* BestStyle 클래스의 요소를 가로로 배치합니다. */
+  width: 80%; /* 가로로 전체 영역을 차지하도록 설정합니다. */
+  justify-content: space-between; /* 요소들을 가운데 정렬하고 주변 여백을 균등하게 분배합니다. */
+  gap: 20px; /* 요소들 사이의 간격을 설정합니다. */
+}
+
+.BestText {
+  color: black;
+  font-size: 50px;
+  font-family: 'NanumBarunGothicOTF';
+  font-weight: 400;
+  line-height: 90px;
+  word-wrap: break-word;
+  margin-bottom: 20px; /* 여백 추가 */
+}
+
+.Best4, .Best3, .Best2, .Best1 {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.BestImage {
+  width: 300px;
+  height: 400px;
+  border-radius: 80px;
+  object-fit: cover;
+}
+
+.Hashtag {
+  width: 85px;
+  height: 30px;
+  text-align: center;
+  color: #565555;
+  font-size: 15px;
+  font-family: 'NanumBarunGothicOTF';
+  font-weight: 400;
+  word-wrap: break-word;
+}
