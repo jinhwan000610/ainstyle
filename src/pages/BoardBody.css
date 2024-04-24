@@ -1,0 +1,86 @@
+.Boardbody {
+    /* width: 100%; */
+    width: 1080px;
+    margin: 120px 220px;
+}
+/* best-div */
+.best-div {
+    width: 1080px;
+    height: 440px;
+}
+
+.best-title-wrap {
+    width: 80px;
+    height: 40px;
+}
+
+.best-style-card-container {
+    display: flex;
+    width: 100%;
+    height: 360px;
+}
+
+.best-style-card-wrap {
+    margin: 0 40px;
+}
+
+.best-style-card-wrap img {
+    /* width: 400px; */
+    /* height: 480px; */
+    width: 280px;
+    height: 360px;
+}
+
+/* filter-div */
+.top-line {
+    width: 1080px;
+    height: 1px;
+    border: 1px solid #000;
+    background: #0d0000;
+    margin-bottom: 4px;
+}
+
+.filter-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter-container {
+    width: 180px;
+}
+
+.filter-container select {
+    margin-right: 4px;
+}
+
+.filter-plus-button-wrap {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.filter-plus-button {
+    /* align-items: center;
+    justify-content: center;
+    text-align: center; */
+}
+
+/* pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination div {
+    margin: 4px;
+}
+
+.pagination-number-container {
+    display: flex;
+}
+
+.pagination-number-container div {
+    margin: 4px;
+}
