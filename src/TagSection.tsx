@@ -14,6 +14,7 @@ const TagSection = () => {
     "결혼식",
     "출근",
     "데일리",
+    "스포츠",
   ];
   const seasonList = ["봄", "여름", "가을", "겨울"];
   const moodList = [
@@ -63,9 +64,13 @@ const TagSection = () => {
   return (
     <ClosetSectionWrapper>
       <HeaderWrapper>
-        <Title>태그선택</Title>
-        <Select>선택 사항 없음</Select>
-      </HeaderWrapper>
+  <Title>태그선택</Title>
+  {selectedTPOList.length > 0 || selectedSeasonList.length > 0 || selectedMoodList.length > 0 ? (
+    <Select>{[...selectedTPOList, ...selectedSeasonList, ...selectedMoodList].join(', ')}</Select>
+  ) : (
+    <Select>선택 사항 없음</Select>
+  )}
+</HeaderWrapper>
       <BodyWrapper>
         <ItemBox>
           <ItemTitle>TPO</ItemTitle>
@@ -130,10 +135,11 @@ const TagWrapper = styled.div`
 `;
 
 const TagLabel = styled.label`
-  flex: 0 1 calc(50% - 10px);
+  flex: 1 0 25%; // 4개 항목이 균일하게 분포하도록 조정
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin: 5px 0; // 각 태그 항목간의 간격 조정
 `;
 
 const TagItem = styled.input.attrs({ type: "checkbox" })`
@@ -141,11 +147,11 @@ const TagItem = styled.input.attrs({ type: "checkbox" })`
 `;
 
 const CustomCheckbox = styled.span<{ selected: boolean }>`
-  width: 16px;
-  height: 16px;
-  border: 2px solid #999;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #555; // 스타일 향상
   border-radius: 4px;
-  margin-right: 8px;
+  margin-right: 10px;
   display: inline-block;
   background-color: ${({ selected }) => (selected ? "#4caf50" : "transparent")};
   &:after {
@@ -153,69 +159,59 @@ const CustomCheckbox = styled.span<{ selected: boolean }>`
     color: white;
     display: block;
     text-align: center;
-    line-height: 12px;
+    line-height: 16px; // 체크박스 내 체크 표시 위치 조정
   }
 `;
 
 const TagName = styled.span`
-  padding: 5px 0;
-  display: inline-flex;
-  justify-content: space-between;
-  width: 100%;
+  flex-grow: 1;
 `;
 
 const ItemTitle = styled.div`
-  color: gray;
-  margin-top: 8px;
+  color: #666; // 라벨 색상 조정
+  font-weight: bold; // 제목 굵기 강조
+  margin-top: 10px;
   margin-left: 20px;
 `;
 
 const ItemBox = styled.div`
   flex: 1;
-  background-color: white;
-  border-radius: 20px;
-  margin: 0 10px;
-  height: 100%;
-
-  // 첫 번째와 마지막 칸의 margin을 조정하여 전체적으로 균등한 간격을 유지합니다.
-  &:first-child {
-    margin-left: 0;
-  }
-  &:last-child {
-    margin-right: 0;
-  }
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); // 그림자 효과 추가
+  padding: 20px; // 내부 패딩 추가
 `;
 
 const BodyWrapper = styled.div`
-  width: calc(100% - 40px);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   padding: 20px;
-  height: 100%;
 `;
 
 const Select = styled.div``;
+
 const Title = styled.div`
-  font-size: 20px;
-  color: #fff;
+  font-size: 24px; // 크기 조정
+  font-weight: bold; // 굵기 강조
+  color: #333; // 색상 변경
 `;
 
 const HeaderWrapper = styled.div`
-  width: calc(100% - 40px);
-  display: inline-flex;
+  display: flex;
   justify-content: space-between;
-  padding: 0px 20px;
+  padding: 20px;
+  align-items: center;
+  background-color: #eee; // 배경 색상 추가
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); // 그림자 효과 추가
 `;
 
 const ClosetSectionWrapper = styled.div`
   width: 100%;
-  height: 400px;
-  display: inline-flex;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  margin-top: 20px;
-  background-color: #000;
+  background-color: #f0f0f0; // 배경 색상 조정
 `;
 
 export default TagSection;
