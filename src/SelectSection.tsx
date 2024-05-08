@@ -77,87 +77,111 @@ const SelectSection = () => {
 };
 
 const ListWrap = styled.div`
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 10px 0px;
+  display: flex;
+  gap: 10px;
+  padding: 10px 0;
 
   & div {
-    background-color: skyblue;
-    font-weight: 800;
-    border-radius: 10px;
-    padding: 10px;
+    background-color: #cccccc;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap; // Prevent text wrapping
+    min-width: 70px; // Minimum width for each option
+
+    &:hover {
+      background-color: #a0a0a0;
+    }
+
+    &.active {
+      background-color: #0077ff;
+      color: #ffffff;
+    }
   }
 `;
 
 const Wrap = styled.div`
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   margin-top: 20px;
 `;
 
 const InputWrapper = styled.div`
-  margin-left: 20px;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
   flex: 1;
-  background-color: #fff;
+  padding: 20px;
+  background-color: #ffffff;
   border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+  & > div {
+    margin-bottom: 5px;
+  }
 
   & input {
-    margin-left: 40px;
-    border: 2px solid #000;
+    padding: 8px;
+    width: calc(100% - 16px); // To accommodate padding
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 16px;
   }
 `;
 
 const TitleRight = styled.div`
-  font-size: 32px;
-  font-weight: 900;
-  color: #fff;
-  width: 240px;
-  padding: 0 8px;
-  border-bottom: 15px solid #ffffff;
-  margin-top: 5px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+  background-color: #ffffff;
+  padding: 10px 20px;
   margin-bottom: 20px;
+  border-radius: 5px;
 `;
 
 const TitleLeft = styled.div`
-  font-size: 32px;
-  font-weight: 900;
-  color: #fff;
-  width: 140px;
-  padding: 0 8px;
-  border-bottom: 15px solid #ffffff;
-  position: absolute;
-  left: 0px;
-  top: 5px;
+font-size: 24px;
+font-weight: bold;
+color: #333333;
+background-color: #ffffff;
+padding: 10px 20px;
+margin-bottom: 20px;
+border-radius: 5px;
 `;
-
 const RightSection = styled.div`
-  background-color: #e2e2e2;
-  width: 48%;
-  height: 100%;
-  position: relative;
-  font-size: 20px;
-  display: inline-flex;
+  flex: 1;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 `;
 
 const LeftSection = styled.div`
-  background-color: #e2e2e2;
-  width: 48%;
-  height: 100%;
-  position: relative;
+  flex: 1;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 `;
 
 const SelectSectionWrapper = styled.div`
-  width: 100%;
-  height: 400px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
 `;
 
 export default SelectSection;
