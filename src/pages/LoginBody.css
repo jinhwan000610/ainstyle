@@ -36,7 +36,7 @@
   color: black; /* 글자 색상 검은색 */
   font-size: 70px; /* 글자 크기 */
   font-family: 'NanumGothic-Regular'; /* 글꼴 */
-  font-weight: 400; /* 폰트 두께 */
+  font-weight: 800; /* 폰트 두께 */
   line-height: 136px; /* 줄 높이 */
   word-wrap: break-word; /* 글자가 너무 길면 줄 바꿈 */
 }
@@ -52,16 +52,17 @@
 
 /* 아이디/패스워드 스타일 */
 .Idpass {
-  width: 420px; /* 가로 너비 */
+  width: 400px; /* 가로 너비 */
   height: 120px; /* 세로 높이 */
   display: flex; /* Flexbox 사용 */
   flex-direction: column; /* 수직으로 정렬 */
   align-items: flex-start; /* 왼쪽 정렬 */
   gap: 10px; /* 간격 */
+  margin-right: 20px;
 }
 
 /* 아이디, 패스워드 스타일 */
-.Id, .Pass {
+.IdInput, .PassInput {
   width: 420px; /* 가로 너비 */
   height: 55px; /* 세로 높이 */
   background: linear-gradient(0deg, #EAEAEA 0%, #EAEAEA 100%); /* 배경 색상 */
@@ -96,4 +97,5 @@
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: flex-start; /* 위쪽 정렬 */
   gap: 90px; /* 간격 */
+  cursor: pointer;
 }
