@@ -1,0 +1,66 @@
+.CrawlerBody {
+    text-align: center;
+    padding: 20px;
+    max-width: 1920px;
+    width: 100%;
+  }
+  
+  .CrawlerTitle {
+    max-width: 1920px;
+    width: 100%;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .CrawlerFrame {
+    max-width: 1920px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .ImageContainer {
+    width: 270px;
+    height: 480px;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+  }
+  
+  .CrawlerControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .SelectButton {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.ArrowButton {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  cursor: pointer;
+}
+  
+  .ArrowButton.left {
+    border-width: 15px 20px 15px 0;
+    border-color: transparent #2196F3 transparent transparent;
+    margin-right: 10px;
+  }
+  
+  .ArrowButton.right {
+    border-width: 15px 0 15px 20px;
+    border-color: transparent transparent transparent #2196F3;
+    margin-left: 10px;
+  }
