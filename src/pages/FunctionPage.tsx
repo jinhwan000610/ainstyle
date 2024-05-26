@@ -5,15 +5,14 @@ import ItemSection from "./ItemSection";
 import Functionbtn from "./Functionbtn";
 import SelectSection from "./SelectSection";
 
-
 interface UserData {
   height: string;
   weight: string;
   size: string;
   fit: string;
   tpo: string[];
-  season: string[];
   mood: string[];
+  gender: string;
 }
 
 interface WeatherData {
@@ -29,8 +28,8 @@ const FunctionPage = () => {
     size: "",
     fit: "",
     tpo: [],
-    season: [],
-    mood: []
+    mood: [],
+    gender: ""
   });
 
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
@@ -40,13 +39,13 @@ const FunctionPage = () => {
     weight: string;
     size: string;
     fit: string;
+    gender: string;
   }) => {
     setUserData((prevData) => ({ ...prevData, ...data }));
   };
 
   const handleTagData = (tagData: {
     tpo: string[];
-    season: string[];
     mood: string[];
   }) => {
     setUserData((prevData) => ({ ...prevData, ...tagData }));

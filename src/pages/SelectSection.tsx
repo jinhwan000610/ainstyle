@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Googlemaps from "./Googlemaps";
 
 interface SelectSectionProps {
-  onSelectData: (data: { height: string; weight: string; size: string; fit: string }) => void;
+  onSelectData: (data: { height: string; weight: string; size: string; fit: string; gender: string }) => void;
   onLocationChange: (locationData: { lat: number; lng: number; weather: WeatherData }) => void;
 }
 
@@ -18,27 +18,34 @@ const SelectSection: React.FC<SelectSectionProps> = ({ onSelectData, onLocationC
   const [weight, setWeight] = useState("");
   const [size, setSize] = useState("");
   const [fit, setFit] = useState("");
+  const [gender, setGender] = useState("");
   const sizeList = ["S", "M", "L", "XL", "2XL"];
   const fitList = ["스키니", "정핏", "오버핏", "맥시"];
+  const genderList = ["남성", "여성"];
 
   const handleHeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHeight(e.target.value);
-    onSelectData({ height: e.target.value, weight, size, fit });
+    onSelectData({ height: e.target.value, weight, size, fit, gender });
   };
 
   const handleWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWeight(e.target.value);
-    onSelectData({ height, weight: e.target.value, size, fit });
+    onSelectData({ height, weight: e.target.value, size, fit, gender });
   };
 
   const handleSizeClick = (s: string) => {
     setSize(s);
-    onSelectData({ height, weight, size: s, fit });
+    onSelectData({ height, weight, size: s, fit, gender });
   };
 
   const handleFitClick = (f: string) => {
     setFit(f);
-    onSelectData({ height, weight, size, fit: f });
+    onSelectData({ height, weight, size, fit: f, gender });
+  };
+
+  const handleGenderClick = (g: string) => {
+    setGender(g);
+    onSelectData({ height, weight, size, fit, gender: g });
   };
 
   return (
@@ -98,6 +105,20 @@ const SelectSection: React.FC<SelectSectionProps> = ({ onSelectData, onLocationC
                   style={{ backgroundColor: fit === f ? "skyblue" : "gray" }}
                 >
                   {f}
+                </div>
+              ))}
+            </ListWrap>
+          </InputWrapper>
+          <InputWrapper>
+            <div>성별</div>
+            <ListWrap>
+              {genderList.map((g) => (
+                <div
+                  key={g}
+                  onClick={() => handleGenderClick(g)}
+                  style={{ backgroundColor: gender === g ? "skyblue" : "gray" }}
+                >
+                  {g}
                 </div>
               ))}
             </ListWrap>

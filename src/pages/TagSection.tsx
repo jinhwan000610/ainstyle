@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 interface TagSectionProps {
-  onSelectTagData: (data: { tpo: string[]; season: string[]; mood: string[] }) => void;
+  onSelectTagData: (data: { tpo: string[]; mood: string[] }) => void;
 }
 
 const TagSection: React.FC<TagSectionProps> = ({ onSelectTagData }) => {
   const [selectedTPOList, setSelectedTPOList] = useState<string[]>([]);
-  const [selectedSeasonList, setSelectedSeasonList] = useState<string[]>([]);
   const [selectedMoodList, setSelectedMoodList] = useState<string[]>([]);
 
   const tpoList = [
@@ -21,12 +20,12 @@ const TagSection: React.FC<TagSectionProps> = ({ onSelectTagData }) => {
     "데일리",
     "스포츠",
   ];
-  const seasonList = ["봄", "여름", "가을", "겨울"];
+
   const moodList = [
     "미니멀",
     "이지캐주얼",
     "비지니스캐주얼",
-    "아에카지",
+    "아메카지",
     "스트릿",
     "시티보이",
     "원마일웨어",
@@ -43,15 +42,7 @@ const TagSection: React.FC<TagSectionProps> = ({ onSelectTagData }) => {
       ? selectedTPOList.filter((item) => item !== tpo)
       : [...selectedTPOList, tpo];
     setSelectedTPOList(updatedList);
-    onSelectTagData({ tpo: updatedList, season: selectedSeasonList, mood: selectedMoodList });
-  };
-
-  const handleSelectSeason = (season: string) => {
-    const updatedList = selectedSeasonList.includes(season)
-      ? selectedSeasonList.filter((item) => item !== season)
-      : [...selectedSeasonList, season];
-    setSelectedSeasonList(updatedList);
-    onSelectTagData({ tpo: selectedTPOList, season: updatedList, mood: selectedMoodList });
+    onSelectTagData({ tpo: updatedList, mood: selectedMoodList });
   };
 
   const handleSelectMood = (mood: string) => {
@@ -59,15 +50,15 @@ const TagSection: React.FC<TagSectionProps> = ({ onSelectTagData }) => {
       ? selectedMoodList.filter((item) => item !== mood)
       : [...selectedMoodList, mood];
     setSelectedMoodList(updatedList);
-    onSelectTagData({ tpo: selectedTPOList, season: selectedSeasonList, mood: updatedList });
+    onSelectTagData({ tpo: selectedTPOList, mood: updatedList });
   };
 
   return (
     <ClosetSectionWrapper>
       <HeaderWrapper>
         <Title>태그선택</Title>
-        {selectedTPOList.length > 0 || selectedSeasonList.length > 0 || selectedMoodList.length > 0 ? (
-          <Select>{[...selectedTPOList, ...selectedSeasonList, ...selectedMoodList].join(', ')}</Select>
+        {selectedTPOList.length > 0 || selectedMoodList.length > 0 ? (
+          <Select>{[...selectedTPOList, ...selectedMoodList].join(', ')}</Select>
         ) : (
           <Select>선택 사항 없음</Select>
         )}
@@ -85,24 +76,6 @@ const TagSection: React.FC<TagSectionProps> = ({ onSelectTagData }) => {
                 />
                 <CustomCheckbox selected={selectedTPOList.includes(tpo)} />
                 <TagName>{tpo}</TagName>
-              </TagLabel>
-            ))}
-          </TagWrapper>
-        </ItemBox>
-        <ItemBox>
-          <ItemTitle>SEASON</ItemTitle>
-          <TagWrapper>
-            {seasonList.map((season, index) => (
-              <TagLabel key={index}>
-                <TagItem
-                  type="checkbox"
-                  checked={selectedSeasonList.includes(season)}
-                  onChange={() => handleSelectSeason(season)}
-                />
-                <CustomCheckbox
-                  selected={selectedSeasonList.includes(season)}
-                />
-                <TagName>{season}</TagName>
               </TagLabel>
             ))}
           </TagWrapper>

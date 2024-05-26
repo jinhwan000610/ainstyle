@@ -9,8 +9,8 @@ interface FunctionbtnProps {
     size: string;
     fit: string;
     tpo: string[];
-    season: string[];
     mood: string[];
+    gender: string;
   };
   weatherData: {
     desc: string;
@@ -36,14 +36,66 @@ const Functionbtn: React.FC<FunctionbtnProps> = ({ userData, weatherData }) => {
           // Combine user data and weather data
           const combinedData = { ...userData, weather: weatherData };
           const result = await fetchGPTRecommendations(combinedData);
-          const newWindow = window.open("", "_blank", "width=600,height=400");
+
+          // Calculate the center position for the popup
+          const width = 600;
+          const height = 400;
+          const left = (window.screen.width / 2) - (width / 2);
+          const top = (window.screen.height / 2) - (height / 2);
+
+          const newWindow = window.open("", "_blank", `width=${width},height=${height},top=${top},left=${left}`);
           if (newWindow) {
             newWindow.document.write(`
               <html>
-                <head><title>Recommendation</title></head>
+                <head>
+                  <title>Recommendation</title>
+                  <style>
+                    body {
+                      font-family: Arial, sans-serif;
+                      margin: 0;
+                      padding: 0;
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      justify-content: center;
+                      height: 100vh;
+                      background-color: #f0f0f0;
+                    }
+                    h1 {
+                      color: #333;
+                    }
+                    p {
+                      font-size: 18px;
+                      color: #666;
+                      text-align: center;
+                      max-width: 80%;
+                    }
+                    #continueButton {
+                      padding: 10px 20px;
+                      font-size: 16px;
+                      font-weight: bold;
+                      color: #fff;
+                      background-color: #0077ff;
+                      border: none;
+                      border-radius: 5px;
+                      cursor: pointer;
+                      margin-top: 20px;
+                    }
+                    #continueButton:hover {
+                      background-color: #005bb5;
+                    }
+                  </style>
+                </head>
                 <body>
                   <h1>Recommendation Result</h1>
                   <p>${result}</p>
+                  <button id="continueButton">계속하기</button>
+                  <script>
+                    document.getElementById('continueButton').addEventListener('click', function() {
+                      window.opener.location.href = '/StyleCrawlerPage';
+                      window.close();
+                    });
+                  </script>
                 </body>
               </html>
             `);
