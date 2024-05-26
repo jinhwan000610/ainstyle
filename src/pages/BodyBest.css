@@ -1,19 +1,11 @@
 .BodyBest {
-  width: 1920px;
+  width: 100%;
   height: 650px;
   position: relative;
   display: flex;
-  flex-direction: column; /* 요소를 세로 방향으로 배치합니다. */
-  justify-content: space-around; /* 요소들을 가운데 정렬하고 주변 여백을 균등하게 분배합니다. */
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-}
-
-.BestStyle {
-  display: flex;
-  flex-direction: row; /* BestStyle 클래스의 요소를 가로로 배치합니다. */
-  width: 80%; /* 가로로 전체 영역을 차지하도록 설정합니다. */
-  justify-content: space-between; /* 요소들을 가운데 정렬하고 주변 여백을 균등하게 분배합니다. */
-  gap: 20px; /* 요소들 사이의 간격을 설정합니다. */
 }
 
 .BestText {
@@ -23,16 +15,25 @@
   font-weight: 400;
   line-height: 90px;
   word-wrap: break-word;
-  margin-bottom: 20px; /* 여백 추가 */
+  margin-bottom: 20px;
 }
 
-.Best4, .Best3, .Best2, .Best1 {
-  width: 300px;
+.BestStyle {
+  display: flex;
+  width: 80%;
+  overflow: hidden;
+  position: relative;
+}
+
+.Best {
+  min-width: 300px;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 6px;
+  transition: transform 1s ease-in-out;
 }
 
 .BestImage {
