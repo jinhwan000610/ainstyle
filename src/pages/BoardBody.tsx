@@ -1,93 +1,272 @@
-import React from "react";
+import React, { useState } from "react";
 import "./BoardBody.css";
 import StyleCard from "./StyleCard";
-import exampleImg1 from "../assets/img/1.png";
-import exampleImg2 from "../assets/img/2.png";
-import exampleImg3 from "../assets/img/3.png";
+import exampleImg4 from "../assets/img/4.png";
+import exampleImg5 from "../assets/img/5.png";
+import exampleImg6 from "../assets/img/6.png";
+import exampleImg7 from "../assets/img/7.png";
+import exampleImg8 from "../assets/img/8.png";
+import exampleImg9 from "../assets/img/9.png";
+import exampleImg10 from "../assets/img/10.png";
+import exampleImg11 from "../assets/img/11.png";
+import exampleImg12 from "../assets/img/12.png";
+import exampleImg13 from "../assets/img/13.png";
+import exampleImg14 from "../assets/img/14.png";
+import exampleImg15 from "../assets/img/15.png";
 
-const BoardBody = () => {
+interface Card {
+    id: number;
+    image: string;
+    category: string;
+    season: string;
+    style: string;
+}
+
+interface BoardBodyProps {
+    onPlusClick: () => void;
+    onCardClick: (card: Card) => void;
+}
+
+// Example fetch logic:
+// fetch("your_backend_api_url")
+//     .then(response => response.json())
+//     .then(data => {
+//         // Assuming your backend response is an array of cards
+//         setCards(data);
+//     })
+//     .catch(error => {
+//         console.error("Error fetching data:", error);
+//     });
+
+const cards: Card[] = [
+    {
+        id: 4,
+        image: exampleImg4,
+        category: "바다",
+        season: "봄",
+        style: "미니멀",
+    },
+    {
+        id: 5,
+        image: exampleImg5,
+        category: "여행",
+        season: "여름",
+        style: "이지캐주얼",
+    },
+    {
+        id: 6,
+        image: exampleImg6,
+        category: "캠퍼스",
+        season: "가을",
+        style: "비지니스캐주얼",
+    },
+    {
+        id: 7,
+        image: exampleImg7,
+        category: "카페",
+        season: "겨울",
+        style: "아메카지",
+    },
+    {
+        id: 8,
+        image: exampleImg8,
+        category: "데이트",
+        season: "봄",
+        style: "스트릿",
+    },
+    {
+        id: 9,
+        image: exampleImg9,
+        category: "결혼식",
+        season: "여름",
+        style: "시티보이",
+    },
+    {
+        id: 10,
+        image: exampleImg10,
+        category: "출근",
+        season: "가을",
+        style: "원마일웨어",
+    },
+    {
+        id: 11,
+        image: exampleImg11,
+        category: "데일리",
+        season: "겨울",
+        style: "스포티",
+    },
+    {
+        id: 12,
+        image: exampleImg12,
+        category: "스포츠",
+        season: "봄",
+        style: "유니크",
+    },
+    {
+        id: 13,
+        image: exampleImg13,
+        category: "바다",
+        season: "여름",
+        style: "레트로",
+    },
+    {
+        id: 14,
+        image: exampleImg14,
+        category: "여행",
+        season: "가을",
+        style: "러블리",
+    },
+    {
+        id: 15,
+        image: exampleImg15,
+        category: "캠퍼스",
+        season: "겨울",
+        style: "모던캐주얼",
+    },
+];
+
+const BoardBody: React.FC<BoardBodyProps> = ({ onPlusClick, onCardClick }) => {
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
+    const [selectedSeason, setSelectedSeason] = useState<string>("");
+    const [selectedStyle, setSelectedStyle] = useState<string>("");
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(1);
+
+    const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCategory(e.target.value);
+    };
+
+    const handleSeasonChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedSeason(e.target.value);
+    };
+
+    const handleStyleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedStyle(e.target.value);
+    };
+
+    const filteredCards = cards.filter((card) => {
+        return (
+            (selectedCategory === "" || card.category === selectedCategory) &&
+            (selectedSeason === "" || card.season === selectedSeason) &&
+            (selectedStyle === "" || card.style === selectedStyle)
+        );
+    });
+
     return (
-        <div className="Boardbody">
-            {/* best div */}
+        <div className="BoardBody">
             <div className="best-div">
-                {/* BEST 제목 div */}
                 <div className="best-title-wrap">
                     <h4>BEST</h4>
                 </div>
-                {/* 스타일카드 div */}
                 <div className="best-style-card-container">
-                    {/* 카드마다 div로 묶기, 카드안에 이미지넣기 */}
-                    {/* size width: 400px , height: 480px */}
-                    <div className="best-style-card-wrap">
-                        <img src={exampleImg1} alt="" />
-                    </div>
-                    <div className="best-style-card-wrap">
-                        <img src={exampleImg2} alt="" />
-                    </div>
-                    <div className="best-style-card-wrap">
-                        <img src={exampleImg3} alt="" />
-                    </div>
+                    {/* Best cards can be similar logic if needed */}
                 </div>
             </div>
-            {/* 필터 div */}
             <div className="filter-div">
-                {/* 줄 만드는 div */}
-                {/* width: 1460px height: 1px border: 3px solid #000; background: #0D0000;*/}
                 <div className="top-line"></div>
                 <div className="filter-button-container">
-                    {/* 셀렉트 3개 묶는 div */}
                     <div className="filter-container">
-                        {/* 성별 */}
-                        <select name="" id="">
-                            <option value="">성별</option>
-                            <option value="">여성</option>
-                            <option value="">남성</option>
+                        <select
+                            value={selectedCategory}
+                            onChange={handleCategoryChange}
+                        >
+                            <option value="" disabled>
+                                카테고리
+                            </option>
+                            <option value="">전체</option>
+                            <option value="바다">바다</option>
+                            <option value="여행">여행</option>
+                            <option value="캠퍼스">캠퍼스</option>
+                            <option value="카페">카페</option>
+                            <option value="데이트">데이트</option>
+                            <option value="결혼식">결혼식</option>
+                            <option value="출근">출근</option>
+                            <option value="데일리">데일리</option>
+                            <option value="스포츠">스포츠</option>
                         </select>
-                        {/* 연령 */}
-                        <select name="" id="">
-                            <option value="">연령</option>
-                            <option value="">10대</option>
-                            <option value="">20대</option>
-                            <option value="">30대</option>
+                        <select
+                            value={selectedSeason}
+                            onChange={handleSeasonChange}
+                        >
+                            <option value="" disabled>
+                                계절
+                            </option>
+                            <option value="">전체</option>
+                            <option value="봄">봄</option>
+                            <option value="여름">여름</option>
+                            <option value="가을">가을</option>
+                            <option value="겨울">겨울</option>
                         </select>
-                        {/* 스타일 */}
-                        <select name="" id="">
-                            <option value="">스타일</option>
-                            <option value=""></option>
-                            <option value=""></option>
+                        <select
+                            value={selectedStyle}
+                            onChange={handleStyleChange}
+                        >
+                            <option value="" disabled>
+                                스타일
+                            </option>
+                            <option value="">전체</option>
+                            <option value="미니멀">미니멀</option>
+                            <option value="이지캐주얼">이지캐주얼</option>
+                            <option value="비지니스캐주얼">
+                                비지니스캐주얼
+                            </option>
+                            <option value="아메카지">아메카지</option>
+                            <option value="스트릿">스트릿</option>
+                            <option value="시티보이">시티보이</option>
+                            <option value="원마일웨어">원마일웨어</option>
+                            <option value="스포티">스포티</option>
+                            <option value="유니크">유니크</option>
+                            <option value="레트로">레트로</option>
+                            <option value="러블리">러블리</option>
+                            <option value="모던캐주얼">모던캐주얼</option>
                         </select>
                     </div>
-                    {/* 더하기버튼 div */}
                     <div className="filter-plus-button-wrap">
-                        {/* border solid black 주기 */}
-                        {/* 더하기 이미지 넣기 */}
-                        <div className="filter-plus-button">+</div>
+                        <div
+                            className="filter-plus-button"
+                            onClick={onPlusClick}
+                        >
+                            +
+                        </div>
                     </div>
                 </div>
             </div>
-            {/* 전체 스타일카드 div */}
-            <StyleCard />
-            {/* pagination */}
+            <StyleCard cards={filteredCards} onCardClick={onCardClick} />
             <div className="pagination">
-                {/* prev button */}
                 <div>
-                    <div>prev</div>
+                    <div
+                        className="button"
+                        onClick={() =>
+                            setCurrentPage((prev) => Math.max(prev - 1, 1))
+                        }
+                    >
+                        prev
+                    </div>
                 </div>
-                {/* 구분 슬래시 */}
                 <div>|</div>
-                {/* number button */}
                 <div className="pagination-number-container">
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                    <div>5</div>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <div
+                            className="button"
+                            key={index}
+                            onClick={() => setCurrentPage(index + 1)}
+                        >
+                            {index + 1}
+                        </div>
+                    ))}
                 </div>
-                {/* 구분 슬래시 */}
                 <div>|</div>
-                {/* next button */}
                 <div>
-                    <div>next</div>
+                    <div
+                        className="button"
+                        onClick={() =>
+                            setCurrentPage((prev) =>
+                                Math.min(prev + 1, totalPages)
+                            )
+                        }
+                    >
+                        next
+                    </div>
                 </div>
             </div>
         </div>

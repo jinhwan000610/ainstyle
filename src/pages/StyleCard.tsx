@@ -1,70 +1,40 @@
 import React from "react";
 import "./StyleCard.css";
-import exampleImg4 from "../assets/img/4.png";
-import exampleImg5 from "../assets/img/5.png";
-import exampleImg6 from "../assets/img/6.png";
-import exampleImg7 from "../assets/img/7.png";
-import exampleImg8 from "../assets/img/8.png";
-import exampleImg9 from "../assets/img/9.png";
-import exampleImg10 from "../assets/img/10.png";
-import exampleImg11 from "../assets/img/11.png";
-import exampleImg12 from "../assets/img/12.png";
-import exampleImg13 from "../assets/img/13.png";
-import exampleImg14 from "../assets/img/14.png";
-import exampleImg15 from "../assets/img/15.png";
 
-const StyleCard = () => {
+interface Card {
+    id: number;
+    image: string;
+    category: string;
+    season: string;
+    style: string;
+}
+
+interface StyleCardProps {
+    cards: Card[];
+    onCardClick: (card: Card) => void;
+}
+
+const StyleCard: React.FC<StyleCardProps> = ({ cards, onCardClick }) => {
+    const rows = [];
+    for (let i = 0; i < cards.length; i += 4) {
+        rows.push(cards.slice(i, i + 4));
+    }
+
     return (
         <div className="StyleCard">
-            {/* 전체 스타일카드 div */}
-            <div className="style-card-row-container">
-                {/* 각 줄마다 4개의 카드를 가지고있어야 한다 */}
-                {/* 첫번째 줄 */}
-                <div className="style-card-row">
-                    <div className="style-card">
-                        <img src={exampleImg4} alt="" />
-                    </div>
-                    <div className="style-card">
-                        <img src={exampleImg5} alt="" />
-                    </div>
-                    <div className="style-card">
-                        <img src={exampleImg6} alt="" />
-                    </div>
-                    <div className="style-card">
-                        <img src={exampleImg7} alt="" />
-                    </div>
+            {rows.map((row, rowIndex) => (
+                <div className="style-card-row" key={rowIndex}>
+                    {row.map((card) => (
+                        <div
+                            className="style-card"
+                            key={card.id}
+                            onClick={() => onCardClick(card)}
+                        >
+                            <img src={card.image} alt={card.category} />
+                        </div>
+                    ))}
                 </div>
-                {/* 두번째 줄 */}
-                <div className="style-card-row">
-                    <div className="style-card">
-                        <img src={exampleImg8} alt="" />
-                    </div>
-                    <div className="style-card">
-                        <img src={exampleImg9} alt="" />
-                    </div>
-                    <div className="style-card">
-                        <img src={exampleImg10} alt="" />
-                    </div>
-                    <div className="style-card">
-                        <img src={exampleImg11} alt="" />
-                    </div>
-                </div>
-                {/* 세번째 줄 */}
-                <div className="style-card-row">
-                    <div className="style-card">
-                        <img src={exampleImg12} alt="" />
-                    </div>
-                    <div className="style-card">
-                        <img src={exampleImg13} alt="" />
-                    </div>
-                    <div className="style-card">
-                        <img src={exampleImg14} alt="" />
-                    </div>
-                    <div className="style-card">
-                        <img src={exampleImg15} alt="" />
-                    </div>
-                </div>
-            </div>
+            ))}
         </div>
     );
 };

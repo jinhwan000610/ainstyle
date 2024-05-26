@@ -1,0 +1,35 @@
+.card-detail {
+    margin: 0 auto;
+    width: 1080px;
+    height: 100%;
+    display: flex;
+}
+
+.style-img {
+    margin: 40px;
+    width: 600px;
+    height: 800px;
+    & img {
+        width: 100%;
+    }
+}
+
+.divide-line {
+    background-color: black;
+    margin: 40px;
+    width: 1px;
+    height: 880px;
+}
+
+.style-tag-container {
+    margin: 40px;
+    display: flex;
+}
+
+.style-tag {
+    margin: 8px;
+    height: 20px;
+    border-radius: 50px;
+    background-color: gray;
+    padding: 8px;
+}

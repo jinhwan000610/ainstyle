@@ -1,7 +1,11 @@
-.Boardbody {
+.BoardBody {
     /* width: 100%; */
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
     width: 1080px;
-    margin: 120px 220px;
+    /* margin: 120px 220px; */
+    margin: 0 auto;
 }
 /* best-div */
 .best-div {
@@ -41,13 +45,14 @@
 }
 
 .filter-button-container {
-    width: 100%;
+    width: 1080px;
     display: flex;
     justify-content: space-between;
+    margin: 8px 0px;
 }
 
 .filter-container {
-    width: 180px;
+    width: 260px;
 }
 
 .filter-container select {
@@ -62,15 +67,19 @@
 }
 
 .filter-plus-button {
-    /* align-items: center;
+    display: flex;
     justify-content: center;
-    text-align: center; */
+    align-items: center;
+    text-align: center;
 }
 
 /* pagination */
 .pagination {
     display: flex;
     justify-content: center;
+    & .button {
+        cursor: pointer;
+    }
 }
 
 .pagination div {

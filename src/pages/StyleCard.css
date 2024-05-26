@@ -1,19 +1,25 @@
 .StyleCard {
     width: 1080px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 .style-card-row {
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 30px;
 }
 
 .style-card {
-    margin: 30px;
+    width: 200px;
+    height: 250px;
+    margin: 0 15px; /* Adjust as needed to center the cards */
     background-repeat: no-repeat;
 }
 
 .style-card img {
-    width: 200px;
-    height: 250px;
+    width: 100%;
+    height: 100%;
 }
