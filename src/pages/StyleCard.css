@@ -7,15 +7,15 @@
 
 .style-card-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     width: 100%;
-    margin-bottom: 30px;
+    margin-top: 35px;
 }
 
 .style-card {
     width: 200px;
     height: 250px;
-    margin: 0 15px; /* Adjust as needed to center the cards */
+    margin: 0 35px;
     background-repeat: no-repeat;
 }
 

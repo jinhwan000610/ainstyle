@@ -14,7 +14,6 @@ interface CardDetailProps {
 }
 
 const CardDetail: React.FC<CardDetailProps> = ({ card }) => {
-    // Split the style string into an array of hashtags
     const styleTags = card.style.split(",").map((tag) => `#${tag.trim()}`);
 
     return (
@@ -24,12 +23,10 @@ const CardDetail: React.FC<CardDetailProps> = ({ card }) => {
             </div>
             <div className="divide-line"></div>
             <div className="style-tag-container">
-                {/* Display category and season as hashtags */}
                 <div className="style-tag">#{card.category}</div>
                 <div className="style-tag">#{card.season}</div>
-                {/* Display style tags */}
                 {styleTags.map((tag, index) => (
-                    <div className="style-tag" key={index}>
+                    <div key={index} className="style-tag">
                         {tag}
                     </div>
                 ))}

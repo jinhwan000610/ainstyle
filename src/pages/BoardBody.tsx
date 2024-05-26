@@ -25,6 +25,7 @@ interface Card {
 interface BoardBodyProps {
     onPlusClick: () => void;
     onCardClick: (card: Card) => void;
+    cards: Card[];
 }
 
 // Example fetch logic:
@@ -125,12 +126,16 @@ const cards: Card[] = [
     },
 ];
 
-const BoardBody: React.FC<BoardBodyProps> = ({ onPlusClick, onCardClick }) => {
+const BoardBody: React.FC<BoardBodyProps> = ({
+    onPlusClick,
+    onCardClick,
+    cards,
+}) => {
     const [selectedCategory, setSelectedCategory] = useState<string>("");
     const [selectedSeason, setSelectedSeason] = useState<string>("");
     const [selectedStyle, setSelectedStyle] = useState<string>("");
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [totalPages, setTotalPages] = useState<number>(1);
+    const cardsPerPage = 12;
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedCategory(e.target.value);
@@ -152,6 +157,13 @@ const BoardBody: React.FC<BoardBodyProps> = ({ onPlusClick, onCardClick }) => {
         );
     });
 
+    const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
+    const startIndex = (currentPage - 1) * cardsPerPage;
+    const currentCards = filteredCards.slice(
+        startIndex,
+        startIndex + cardsPerPage
+    );
+
     return (
         <div className="BoardBody">
             <div className="best-div">
@@ -159,7 +171,7 @@ const BoardBody: React.FC<BoardBodyProps> = ({ onPlusClick, onCardClick }) => {
                     <h4>BEST</h4>
                 </div>
                 <div className="best-style-card-container">
-                    {/* Best cards can be similar logic if needed */}
+                    {/* 나중에 베스트 슬라이드배너 추가 예정 */}
                 </div>
             </div>
             <div className="filter-div">
@@ -231,11 +243,14 @@ const BoardBody: React.FC<BoardBodyProps> = ({ onPlusClick, onCardClick }) => {
                     </div>
                 </div>
             </div>
-            <StyleCard cards={filteredCards} onCardClick={onCardClick} />
+            {currentCards.length > 0 ? (
+                <StyleCard cards={currentCards} onCardClick={onCardClick} />
+            ) : (
+                <div className="no-results">해당하는 스타일이 없습니다</div>
+            )}
             <div className="pagination">
                 <div>
                     <div
-                        className="button"
                         onClick={() =>
                             setCurrentPage((prev) => Math.max(prev - 1, 1))
                         }
@@ -247,7 +262,6 @@ const BoardBody: React.FC<BoardBodyProps> = ({ onPlusClick, onCardClick }) => {
                 <div className="pagination-number-container">
                     {Array.from({ length: totalPages }, (_, index) => (
                         <div
-                            className="button"
                             key={index}
                             onClick={() => setCurrentPage(index + 1)}
                         >
@@ -258,7 +272,6 @@ const BoardBody: React.FC<BoardBodyProps> = ({ onPlusClick, onCardClick }) => {
                 <div>|</div>
                 <div>
                     <div
-                        className="button"
                         onClick={() =>
                             setCurrentPage((prev) =>
                                 Math.min(prev + 1, totalPages)
