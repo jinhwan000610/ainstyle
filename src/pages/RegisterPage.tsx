@@ -45,14 +45,15 @@ const RegisterPage = () => {
   const handleSubmit = () => {
     if (termsAgreeChecked && personalAgreeChecked) {
       const completeFormData = {
-        user_name: formData.username,
+        user_name: formData.fullName, // 이름 필드를 user_name으로 매핑
+        username: formData.username,  // 아이디 필드를 username으로 매핑
         password: formData.password,
         email: formData.email,
         phone_number: `${formData.phoneNumber1}-${formData.phoneNumber2}-${formData.phoneNumber3}`
       };
-
+  
       console.log('Submitting form data:', completeFormData);
-
+  
       axios.post('http://localhost:8080/api/register', completeFormData)
         .then(response => {
           console.log('Registration successful:', response.data);
@@ -66,7 +67,8 @@ const RegisterPage = () => {
       alert("등록하려면 모든 약관에 동의해야 합니다.");
     }
   };
-
+  
+  
   return (
     <div className="RegisterPage">
       <Header />
