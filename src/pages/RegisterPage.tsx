@@ -3,6 +3,7 @@ import axios from 'axios';
 import './RegisterPage.css';
 import Terms from '../assets/text/terms';
 import Header from './Header';
+
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -51,9 +52,9 @@ const RegisterPage = () => {
         email: formData.email,
         phone_number: `${formData.phoneNumber1}-${formData.phoneNumber2}-${formData.phoneNumber3}`
       };
-  
+
       console.log('Submitting form data:', completeFormData);
-  
+
       axios.post('http://localhost:8080/api/register', completeFormData)
         .then(response => {
           console.log('Registration successful:', response.data);
@@ -67,37 +68,35 @@ const RegisterPage = () => {
       alert("등록하려면 모든 약관에 동의해야 합니다.");
     }
   };
-  
-  
+
   return (
     <div className="RegisterPage">
       <Header />
-      <header>회원가입</header>
       <form className="RegisterForm" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
         <table className="FormTable">
           <tbody>
             <tr>
               <th>아이디<span>*</span></th>
               <td>
-                <input type="text" name="username" value={formData.username} onChange={handleChange} />
+                <input type="username" name="username" value={formData.username} onChange={handleChange} />
               </td>
             </tr>
             <tr>
               <th>비밀번호<span>*</span></th>
               <td>
-                <input type="password" name="password" value={formData.password} onChange={handleChange} />
+                <input type="registerpassword" name="password" value={formData.password} onChange={handleChange} />
               </td>
             </tr>
             <tr>
               <th>비밀번호 확인<span>*</span></th>
               <td>
-                <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+                <input type="passwordcheck" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
               </td>
             </tr>
             <tr>
               <th>이름<span>*</span></th>
               <td>
-                <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} />
+                <input type="name" name="fullName" value={formData.fullName} onChange={handleChange} />
               </td>
             </tr>
             <tr>
@@ -114,32 +113,36 @@ const RegisterPage = () => {
                 <input type="email" name="email" value={formData.email} onChange={handleChange} />
               </td>
             </tr>
-            <tr>
-              <th>전체 동의</th>
-              <td>
-                <input type="checkbox" checked={allAgreeChecked} onChange={handleAllAgreeChange} />
-                <span>모든 약관을 확인하고 전체 동의합니다.</span>
-              </td>
-            </tr>
-            <tr>
-              <th>[필수] 이용약관 동의</th>
-              <td>
-                <div className="TermUse"><Terms /></div>
-                <input type="checkbox" checked={termsAgreeChecked} onChange={handleTermsAgreeChange} />
-                <span>이용약관에 동의합니다.</span>
-              </td>
-            </tr>
-            <tr>
-              <th>[필수] 개인정보 수집 및 동의</th>
-              <td>
-                <div className="PersonalUse"><Terms /></div>
-                <input type="checkbox" checked={personalAgreeChecked} onChange={handlePersonalAgreeChange} />
-                <span>개인정보 수집 및 이용에 동의합니다.</span>
-              </td>
-            </tr>
           </tbody>
         </table>
-        <button type="submit">계속하기</button>
+        <div className="All">전체 동의</div>
+        <div className="AllAgree">
+          <div className="CheckboxContainer">
+            <input type="checkbox" checked={allAgreeChecked} onChange={handleAllAgreeChange} />
+            <span>모든 약관을 확인하고 전체 동의합니다.</span>
+          </div>
+        </div>
+        <div className="TermsUse">[필수] 이용약관 동의</div>
+        <div className="TermUse"><Terms /></div>
+        <div className="TermsAgree">
+          <div className="CheckboxContainer">
+            <span>이용약관의 동의하십니까?</span>
+            <input type="checkbox" checked={termsAgreeChecked} onChange={handleTermsAgreeChange} />
+            <span>동의함</span>
+          </div>
+        </div>
+        <div className="PerUse">[필수] 개인정보 수집 및 동의</div>
+        <div className="PersonalUse"><Terms /></div>
+        <div className="PersonalAgree">
+          <div className="CheckboxContainer">
+            <span>개인정보 수집 및 이용에 동의하십니까?</span>
+            <input type="checkbox" checked={personalAgreeChecked} onChange={handlePersonalAgreeChange} />
+            <span>동의함</span>
+          </div>
+        </div>
+        <div className="Button">
+          <button className="ContinueButton" onClick={handleSubmit} type="button">계속하기</button>
+        </div>
       </form>
     </div>
   );
