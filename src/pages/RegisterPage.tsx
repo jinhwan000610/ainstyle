@@ -46,16 +46,16 @@ const RegisterPage = () => {
   const handleSubmit = () => {
     if (termsAgreeChecked && personalAgreeChecked) {
       const completeFormData = {
-        user_name: formData.fullName, // 이름 필드를 user_name으로 매핑
+        fullName: formData.fullName, // 이름 필드를 fullName으로 매핑
         username: formData.username,  // 아이디 필드를 username으로 매핑
         password: formData.password,
         email: formData.email,
-        phone_number: `${formData.phoneNumber1}-${formData.phoneNumber2}-${formData.phoneNumber3}`
+        phoneNumber: `${formData.phoneNumber1}-${formData.phoneNumber2}-${formData.phoneNumber3}`
       };
 
       console.log('Submitting form data:', completeFormData);
 
-      axios.post('http://localhost:8080/api/register', completeFormData)
+      axios.post('http://43.202.54.163:8080/api/register', completeFormData)
         .then(response => {
           console.log('Registration successful:', response.data);
           alert("회원가입이 성공적으로 완료되었습니다!");
@@ -78,25 +78,25 @@ const RegisterPage = () => {
             <tr>
               <th>아이디<span>*</span></th>
               <td>
-                <input type="username" name="username" value={formData.username} onChange={handleChange} />
+                <input type="text" name="username" value={formData.username} onChange={handleChange} />
               </td>
             </tr>
             <tr>
               <th>비밀번호<span>*</span></th>
               <td>
-                <input type="registerpassword" name="password" value={formData.password} onChange={handleChange} />
+                <input type="password" name="password" value={formData.password} onChange={handleChange} />
               </td>
             </tr>
             <tr>
               <th>비밀번호 확인<span>*</span></th>
               <td>
-                <input type="passwordcheck" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+                <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
               </td>
             </tr>
             <tr>
               <th>이름<span>*</span></th>
               <td>
-                <input type="name" name="fullName" value={formData.fullName} onChange={handleChange} />
+                <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} />
               </td>
             </tr>
             <tr>

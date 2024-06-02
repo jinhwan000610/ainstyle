@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import './LoginBody.css'; // 스타일 파일을 import 합니다.
+import './LoginBody.css';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
-const LoginBody = () => {
+const LoginBody: React.FC = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
+  const { login } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -12,10 +14,10 @@ const LoginBody = () => {
   };
 
   const handleLogin = () => {
-    axios.post('http://localhost:8080/api/login', formData)
+    axios.post('http://43.202.54.163:8080/api/login', formData)
       .then(response => {
-        
-        window.location.href = '/'; // 성공 시 메인페이지로 리다이렉트
+        login();
+        window.location.href = '/';
       })
       .catch(error => {
         console.error('Login failed:', error);
@@ -43,7 +45,6 @@ const LoginBody = () => {
         </div>
         <div className="Loginframe">
           <div className="Idpass">
-            {/* 아이디 입력란 */}
             <input
               type="text"
               className="IdInput"
@@ -52,7 +53,6 @@ const LoginBody = () => {
               value={formData.username}
               onChange={handleChange}
             />
-            {/* 패스워드 입력란 */}
             <input
               type="password"
               className="PassInput"

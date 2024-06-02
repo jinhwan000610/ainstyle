@@ -1,7 +1,10 @@
 import React from 'react';
+import { useAuth } from '../context/AuthContext';
 import './Header.css';
 
-const Header = () => {
+const Header: React.FC = () => {
+  const { isAuthenticated, logout } = useAuth();
+
   const handleLogoClick = () => {
     window.location.href = '/';
   };
@@ -18,8 +21,12 @@ const Header = () => {
     window.location.href = '/mypage';
   };
   const handleLoginClick = () => {
-    // 로그인 클릭 시 LoginPage로 이동합니다.
-    window.location.href = '/login'; // 페이지를 이동시킵니다.
+    window.location.href = '/login';
+  };
+
+  const handleLogoutClick = () => {
+    logout();
+    window.location.href = '/';
   };
 
   return (
@@ -31,11 +38,11 @@ const Header = () => {
         <div className="Menu" onClick={handleBoardClick}>게시판</div>
         <div className="Menu" onClick={handleMypageClick}>마이 페이지</div>
       </div>
-      <div id="Login" onClick={handleLoginClick}>
-        Login
+      <div id="Login" onClick={isAuthenticated ? handleLogoutClick : handleLoginClick}>
+        {isAuthenticated ? 'Logout' : 'Login'}
       </div>
     </div>
   );
-}
+};
 
 export default Header;
