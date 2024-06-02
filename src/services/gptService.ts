@@ -1,4 +1,3 @@
-// src/services/gptService.ts
 import axios from 'axios';
 
 interface GPTRequestData {
@@ -15,14 +14,29 @@ interface GPTRequestData {
   gender: string; // 성별 추가
 }
 
-const fetchGPTRecommendations = async (data: GPTRequestData): Promise<string> => {
+const styleMapping: { [key: string]: string } = {
+  아메카지: "americancasual",
+  캐주얼: "casual",
+  시크: "chic",
+  댄디: "dandy",
+  비즈니스캐주얼: "formal",
+  걸리시: "girlish",
+  골프: "golf",
+  레트로: "retro",
+  로맨틱: "romantic",
+  스포티: "sports",
+  스트릿: "street",
+  고프코어: "gorpcore"
+};
+
+const fetchGPTRecommendations = async (data: GPTRequestData): Promise<{formattedResponse: string, styleType: string}> => {
   try {
     console.log("API Key used:", process.env.REACT_APP_OPENAI_API_KEY);
-    
+
     // 사용자 성별에 따라 로맨틱 스타일 포함 여부 결정
     const styles = data.gender === '남자'
-      ? "아메카지, 캐주얼, 시크, 댄디, 비즈니스캐주얼, 걸리시, 골프, 레트로, 스포티, 스트릿, 고프코어, 하이틴, 미니멀"
-      : "아메카지, 캐주얼, 시크, 댄디, 비즈니스캐주얼, 걸리시, 골프, 레트로, 로맨틱, 스포티, 스트릿, 고프코어, 하이틴, 미니멀";
+      ? "아메카지, 캐주얼, 시크, 댄디, 비즈니스캐주얼, 걸리시, 골프, 레트로, 스포티, 스트릿, 고프코어"
+      : "아메카지, 캐주얼, 시크, 댄디, 비즈니스캐주얼, 걸리시, 골프, 레트로, 로맨틱, 스포티, 스트릿, 고프코어";
 
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
@@ -57,11 +71,22 @@ const fetchGPTRecommendations = async (data: GPTRequestData): Promise<string> =>
       }
     );
     console.log(response.data);
-    return formatResponse(response.data.choices[0].message.content.trim());
+
+    const rawResponse = response.data.choices[0].message.content.trim();
+    const formattedResponse = formatResponse(rawResponse);
+    const styleTypeKorean = extractStyleType(formattedResponse);
+    const styleType = styleMapping[styleTypeKorean] || "casual"; // 매핑이 없는 경우 기본값으로 "casual" 사용
+
+    return { formattedResponse, styleType }; // 스타일 타입과 포맷된 응답을 반환
   } catch (error) {
     console.error('Error fetching GPT recommendations:', error);
     throw error;
   }
+};
+
+const extractStyleType = (response: string): string => {
+  const match = response.match(/추천 스타일:\s*(\S+)/);
+  return match ? match[1] : "캐주얼"; // 매칭되지 않을 경우 기본값 "캐주얼"
 };
 
 const formatResponse = (response: string): string => {

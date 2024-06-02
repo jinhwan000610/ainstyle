@@ -1,6 +1,9 @@
+// src/components/Functionbtn.tsx
 import React from "react";
 import styled from "styled-components";
+import axios from "axios";
 import fetchGPTRecommendations from "../services/gptService";
+import { useStyleContext } from "../context/StyleContext";
 
 interface FunctionbtnProps {
   userData: {
@@ -19,6 +22,8 @@ interface FunctionbtnProps {
 }
 
 const Functionbtn: React.FC<FunctionbtnProps> = ({ userData, weatherData }) => {
+  const { setStyleType, setGender } = useStyleContext();
+
   const handleButtonClick = async () => {
     if (userData && weatherData) {
       console.log("User Data:", userData);
@@ -35,9 +40,20 @@ const Functionbtn: React.FC<FunctionbtnProps> = ({ userData, weatherData }) => {
         try {
           // Combine user data and weather data
           const combinedData = { ...userData, weather: weatherData };
-          const result = await fetchGPTRecommendations(combinedData);
+          const { formattedResponse, styleType } = await fetchGPTRecommendations(combinedData);
 
-          // Calculate the center position for the popup
+          console.log("GPT Result (Style Type):", styleType); // GPT 응답 확인
+          console.log("Formatted GPT Response:", formattedResponse); // 포맷된 GPT 응답 확인
+
+          // 스타일 타입 설정
+          setStyleType(styleType);
+          setGender(userData.gender);
+
+          // 크롤링 요청
+          const response = await axios.post('http://localhost:8080/api/crawl/images', { styleType, gender: userData.gender });
+          console.log("Crawling Response:", response.data); // 크롤링 응답 확인
+
+          // 이미지 로직은 Crawler에서 처리하고, 팝업은 아래와 같이 띄웁니다.
           const width = 600;
           const height = 400;
           const left = (window.screen.width / 2) - (width / 2);
@@ -88,7 +104,7 @@ const Functionbtn: React.FC<FunctionbtnProps> = ({ userData, weatherData }) => {
                 </head>
                 <body>
                   <h1>Recommendation Result</h1>
-                  <p>${result}</p>
+                  <p>${formattedResponse}</p>
                   <button id="continueButton">계속하기</button>
                   <script>
                     document.getElementById('continueButton').addEventListener('click', function() {
