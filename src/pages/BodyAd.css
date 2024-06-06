@@ -1,5 +1,6 @@
 .Bodyad {
-    width: 1920px;
+    width: 100%;
+    max-width: 1920px;
     height: 555px;
     justify-content: center;
     align-items: flex-start;
@@ -9,13 +10,15 @@
   }
   
   .Youtube {
-    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
     height: 555px;
     position: relative;
   }
   
   .Webad {
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
     height: 555px;
     justify-content: center;
     align-items: center;
@@ -23,6 +26,8 @@
   }
   
   .Adimage {
+    width: 100%;
+    max-width: 800px;
     flex: 1 1 0;
     align-self: stretch;
     justify-content: center;
@@ -31,6 +36,7 @@
   }
   
   .Ad {
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
     height: 555px;
   }  

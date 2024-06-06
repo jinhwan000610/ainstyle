@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './RegisterBody.css';
 import Terms from '../assets/text/terms'; // terms.tsx 파일을 import합니다.
 import '../assets/fonts/Font.css';
@@ -10,32 +10,60 @@ const RegisterBody = () => {
     throw new Error('FormDataContext must be used within its Provider');
   }
 
-  const { formData } = context;
+  const { formData, formValid, errors, setErrors, setAlertMessage } = context;
   const [allAgreeChecked, setAllAgreeChecked] = useState(false);
   const [termsAgreeChecked, setTermsAgreeChecked] = useState(false);
   const [personalAgreeChecked, setPersonalAgreeChecked] = useState(false);
+  const [allAgreed, setAllAgreed] = useState(false);
+  const [agreementErrors, setAgreementErrors] = useState({
+    terms: '',
+    personal: ''
+  });
+
+  useEffect(() => {
+    setAllAgreed(formValid && termsAgreeChecked && personalAgreeChecked);
+  }, [formValid, termsAgreeChecked, personalAgreeChecked]);
 
   const handleAllAgreeChange = () => {
     const newValue = !allAgreeChecked;
     setAllAgreeChecked(newValue);
     setTermsAgreeChecked(newValue);
     setPersonalAgreeChecked(newValue);
+    setAgreementErrors({
+      terms: '',
+      personal: ''
+    });
   };
 
   const handleTermsAgreeChange = () => {
     setTermsAgreeChecked(!termsAgreeChecked);
+    setAgreementErrors({
+      ...agreementErrors,
+      terms: ''
+    });
   };
 
   const handlePersonalAgreeChange = () => {
     setPersonalAgreeChecked(!personalAgreeChecked);
+    setAgreementErrors({
+      ...agreementErrors,
+      personal: ''
+    });
   };
 
   const handleSubmit = () => {
-    if (termsAgreeChecked && personalAgreeChecked) {
+    if (!termsAgreeChecked) {
+      setAgreementErrors(prev => ({ ...prev, terms: '이용약관에 동의해주세요.' }));
+    }
+    if (!personalAgreeChecked) {
+      setAgreementErrors(prev => ({ ...prev, personal: '개인정보 수집 및 이용에 동의해주세요.' }));
+    }
+
+    if (allAgreed) {
       console.log("Submitting form data to backend:", formData);
       // 여기서 axios 등을 사용하여 formData를 백엔드에 전송합니다.
     } else {
-      alert("등록하려면 모든 약관에 동의해야 합니다.");
+      setAlertMessage('모든 필드를 올바르게 입력하고, 약관에 동의해주세요.');
     }
   };
 
@@ -56,6 +84,7 @@ const RegisterBody = () => {
           <input type="checkbox" checked={termsAgreeChecked} onChange={handleTermsAgreeChange} />
           <span>동의함</span>
         </div>
+        {agreementErrors.terms && <span className="error">{agreementErrors.terms}</span>}
       </div>
       <div className="PerUse">[필수] 개인정보 수집 및 동의</div>
       <div className="PersonalUse"><Terms /></div>
@@ -65,6 +94,7 @@ const RegisterBody = () => {
           <input type="checkbox" checked={personalAgreeChecked} onChange={handlePersonalAgreeChange} />
           <span>동의함</span>
         </div>
+        {agreementErrors.personal && <span className="error">{agreementErrors.personal}</span>}
       </div>
       <div className="Button">
         <button className="ContinueButton" onClick={handleSubmit} type="button">계속하기</button>
