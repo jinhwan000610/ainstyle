@@ -55,7 +55,7 @@ const RegisterPage = () => {
 
       console.log('Submitting form data:', completeFormData);
 
-      axios.post('http://43.202.54.163:8080/api/register', completeFormData)
+      axios.post('http://localhost:8080/api/register', completeFormData)
         .then(response => {
           console.log('Registration successful:', response.data);
           alert("회원가입이 성공적으로 완료되었습니다!");

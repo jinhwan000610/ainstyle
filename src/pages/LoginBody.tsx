@@ -14,7 +14,7 @@ const LoginBody: React.FC = () => {
   };
 
   const handleLogin = () => {
-    axios.post('http://43.202.54.163:8080/api/login', formData)
+    axios.post('http://localhost:8080/api/login', formData)
       .then(response => {
         login();
         window.location.href = '/';
