@@ -1,7 +1,7 @@
-.Boardbody {
+#Boardbody {
     /* width: 100%; */
-    max-width: 1920px;
     width: 100%;
+    max-width: 1920px;
     margin: 120px 220px;
 }
 /* best-div */

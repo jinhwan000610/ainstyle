@@ -4,12 +4,12 @@ import BestImage1 from '../assets/img/Best1.jpg';
 import BestImage2 from '../assets/img/Best2.jpg';
 import BestImage3 from '../assets/img/Best3.jpg';
 import BestImage4 from '../assets/img/Best4.jpg';
-import BestImage5 from '../assets/img/Best5.jpg'; // 추가 이미지
-import BestImage6 from '../assets/img/Best6.jpg'; // 추가 이미지
-import BestImage7 from '../assets/img/Best7.jpg'; // 추가 이미지
-import BestImage8 from '../assets/img/Best8.jpg'; // 추가 이미지
-import BestImage9 from '../assets/img/Best9.jpg'; // 추가 이미지
-import BestImage10 from '../assets/img/Best10.jpg'; // 추가 이미지
+import BestImage5 from '../assets/img/Best5.jpg';
+import BestImage6 from '../assets/img/Best6.jpg';
+import BestImage7 from '../assets/img/Best7.jpg';
+import BestImage8 from '../assets/img/Best8.jpg';
+import BestImage9 from '../assets/img/Best9.jpg'; 
+import BestImage10 from '../assets/img/Best10.jpg'; 
 
 const images = [
   { src: BestImage1, hashtag: "#해시태그1" },

@@ -1,5 +1,6 @@
 .BodyBest {
   width: 100%;
+  max-width: 1920px;
   height: 650px;
   position: relative;
   display: flex;
@@ -20,9 +21,11 @@
 
 .BestStyle {
   display: flex;
-  width: 80%;
+  width: 100%;
   overflow: hidden;
   position: relative;
+  justify-content: center;
+  gap: 150px;
 }
 
 .Best {
