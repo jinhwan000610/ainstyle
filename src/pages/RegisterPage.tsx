@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './RegisterPage.css';
 import Terms from '../assets/text/terms';
@@ -13,19 +13,13 @@ const RegisterPage = () => {
     phoneNumber1: '',
     phoneNumber2: '',
     phoneNumber3: '',
-    email: '',
-    emailCode: ''
+    email: ''
   });
 
   const [allAgreeChecked, setAllAgreeChecked] = useState(false);
   const [termsAgreeChecked, setTermsAgreeChecked] = useState(false);
   const [personalAgreeChecked, setPersonalAgreeChecked] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState<string | null>(null);
-  const [isTimer, setIsTimer] = useState(false);
-  const [isGetCode, setIsGetCode] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-  const [count, setCount] = useState<number>(180);
-  const [codeValue, setCodeValue] = useState<string>('');
 
   const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -71,59 +65,7 @@ const RegisterPage = () => {
     }
   };
 
-  const onValidMail = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      fetch('http://localhost:8080/api/send-email-code', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json;charset=utf-8' },
-        body: JSON.stringify({
-          userEmail: formData.email,
-        }),
-      }).then(res => {
-        if (res.status === 200) {
-          alert('인증 코드가 발송되었습니다.');
-          setIsGetCode(true);
-          setIsTimer(true);
-          setCount(180);
-        } else if (res.status === 401) {
-          alert('이미 존재하는 이메일입니다.');
-        } else if (res.status === 402) {
-          alert('이미 인증이 진행중입니다.');
-        }
-      });
-    },
-    [formData.email]
-  );
-
-  const onValidCode = () => {
-    fetch('http://localhost:8080/api/verify-email-code', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      body: JSON.stringify({
-        userEmail: formData.email,
-        code: codeValue,
-      }),
-    }).then(res => {
-      if (res.status === 200) {
-        setIsChecked(true);
-        alert('이메일 인증이 성공적으로 완료되었습니다.');
-      } else if (res.status === 401) {
-        alert('인증번호가 일치하지 않습니다.');
-      }
-    });
-  };
-
-  const handleEmailCode = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCodeValue(e.target.value);
-  };
-
   const handleSubmit = () => {
-    if (!isChecked) {
-      alert('이메일 인증을 완료해주세요.');
-      return;
-    }
-
     if (termsAgreeChecked && personalAgreeChecked) {
       const completeFormData = {
         user_name: formData.fullName,
@@ -192,37 +134,6 @@ const RegisterPage = () => {
               <th>이메일<span>*</span></th>
               <td>
                 <input type="email" name="email" value={formData.email} onChange={handleChange} />
-                <button className="emailCheckBtn" onClick={onValidMail} disabled={!emailRegExp.test(formData.email) || isChecked}>이메일 인증</button>
-                {isTimer && !isChecked ? <Timer count={count} setCount={setCount} /> : null}
-                {isGetCode ? (
-                  <>
-                    <div className="signUpHeader">
-                      <div className="signUpModalText">인증코드</div>
-                    </div>
-                    <input
-                      name="emailCode"
-                      value={codeValue}
-                      className="codeInput"
-                      placeholder="인증코드 4자리를 입력해주세요"
-                      onChange={handleEmailCode}
-                    />
-                    {isChecked ? (
-                      <img
-                        src="img/checkImg.png" // 이미지 소스 변경 필요
-                        alt="확인 완료"
-                        className="codeCheckImage"
-                      />
-                    ) : (
-                      <button
-                        className="codeCheckBtn"
-                        onClick={onValidCode}
-                        disabled={!(codeValue && codeValue.length >= 4)}
-                      >
-                        확인
-                      </button>
-                    )}
-                  </>
-                ) : null}
               </td>
             </tr>
           </tbody>
@@ -259,37 +170,5 @@ const RegisterPage = () => {
     </div>
   );
 }
-
-interface TimerProps {
-  count: number;
-  setCount: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const Timer: React.FC<TimerProps> = ({ count, setCount }) => {
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${minutes.toString().padStart(2, '0')}:${seconds
-      .toString()
-      .padStart(2, '0')}`;
-  };
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setCount(count => count - 1);
-    }, 1000);
-
-    if (count === 0) {
-      clearInterval(id);
-    }
-    return () => clearInterval(id);
-  }, [count, setCount]);
-
-  return (
-    <div className="timerContainer">
-      <span className="timerText">{formatTime(count)}</span>
-    </div>
-  );
-};
 
 export default RegisterPage;
